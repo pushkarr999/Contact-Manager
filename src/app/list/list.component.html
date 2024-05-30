@@ -1,0 +1,82 @@
+<div class="topNav">
+    <div class="circle">
+        <span class="letters">LR</span>
+    </div>
+</div>
+
+<div class="body">
+    <div class="header">
+        <input type="text" class="form-control search" id="inputSearch" aria-describedby="searchBox" placeholder="Search">
+        <button type="button" class="btn btn-primary create" (click)="openModal()">Create</button>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let contact of contactList">
+        <tr>
+            <td>{{contact.name}}</td>
+            <td>{{contact.email}}</td>
+            <td>{{contact.phone}}</td>
+            <td><i class="material-icons" (click)="openModalEdit(contact)">create</i></td>
+            <td><i class="material-icons" (click)="deleteContact(contact)">delete</i></td>
+        </tr>
+        </tbody>
+  </table>
+</div>
+
+<!-- Modal for create -->
+<div #modal class="modal">
+    <div class="modal-content">
+        <div class="modalHeader">
+            <h3>Create Contact</h3>
+            <span class="close-button" (click)="closeModal()">&times;</span>
+        </div>
+        <form  #create = "ngForm" (ngSubmit)="createContact(create.value)">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter name" ngModel>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter email" ngModel>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" name="phone" placeholder="Enter phone" ngModel>
+            </div>
+            <button type="submit" class="btn btn-primary saveBtn">Save</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal for edit -->
+<div #modalEdit class="modal">
+    <div class="modal-content">
+        <div class="modalHeader">
+            <h3>Edit Contact</h3>
+            <span class="close-button" (click)="closeModal()">&times;</span>
+        </div>
+        <form  #edit = "ngForm" (ngSubmit)="editContactSubmit(edit.value)">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter name" [(ngModel)]="editContact.name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter email" [(ngModel)]="editContact.email">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" name="phone" placeholder="Enter phone" [(ngModel)]="editContact.phone">
+            </div>
+            <button type="submit" class="btn btn-primary saveBtn">Save</button>
+        </form>
+    </div>
+</div>
